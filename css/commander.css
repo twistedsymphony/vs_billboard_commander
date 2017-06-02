@@ -1,0 +1,65 @@
+/* action */
+
+.ui-field-contain label {
+  text-align: right;
+  width: 100px;
+}
+
+.ui-flipswitch .ui-btn.ui-flipswitch-on {
+  text-indent: -3.8em;
+}
+.ui-flipswitch .ui-flipswitch-off {
+  text-indent: 0.2em;
+}
+
+/* console */
+.console_time {
+  color: green;
+  font-weight: normal;
+}
+
+.console_alert {
+  color: red;
+  font-weight: bold;
+}
+
+.console_message {
+  color: black;
+  font-weight: normal;
+}
+
+.console_message_from {
+  color: blue;
+  font-weight: bold;
+}
+
+.console_message_text{
+  color: black;
+  font-weight: normal;
+}
+
+.console_odd {
+  width: 100%;
+  background-color:#cccccc;
+}
+
+.console_even{
+  width: 100%;
+  background-color:#e0e0e0;
+}
+
+.loop_label{
+  text-align:right; 
+  white-space:nowrap;
+  margin-top:13px;
+}
+
+.loop_switch{
+  text-align:center; 
+  white-space:nowrap;
+  margin-top:-2px;
+}
+
+.message_box{
+  margin-top:-4px;
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vs. Billboard Commander</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <link rel="stylesheet" type="text/css" href="css/commander.css">
+    <link rel="stylesheet" type="text/css" href="css/editor.css">
+    <script src="libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="libs/aggrid/ag-grid.min.js"></script>
+    <script src="js/billboard.js"></script>
+    <script src="js/commander.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/common.js"></script>
+  </head>
+
+  <body>
+    <div data-role="page">
+      <div id="commander">
+        <div data-role="header">
+          <h1>vS Commander</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+          <div class="ui-grid-a">
+            <div class="ui-block-a">
+              <input type="button" name="macro_editor_button" id="macro_editor_button" value="macro editor" data-mini="true" />
+            </div>
+            <div class="ui-block-b message_box">
+              <input type="text" name="message" id="message_box" placeholder="send a mesage...">
+            </div>
+          </div>
+          <div class="ui-field-contain">
+            <select name="command" id="command_select" ></select>
+          </div>
+          <div class="ui-field-contain">
+            <select name="macro" id="macro_select"></select>
+            <div class="ui-grid-b">
+              <div class="ui-block-a loop_label">loop&nbsp;</div>
+              <div class="ui-block-b loop_switch">
+                <select id="macro_loop_forever" data-role="flipswitch">
+                  <option value="0">count:</option>
+                  <option value="1">forever</option>
+                </select>
+              </div>
+              <div class="ui-block-c">
+                <input data-mini="true" type="number" name="macro_loops" id="macro_loops" value="1" />
+              </div>
+            </div>
+            <label for="macro_buttons"></label>
+            <div class="ui-grid-b">
+              <div class="ui-block-a">
+                <input type="button" name="play_macro" id="play_macro_button" value="start" data-mini="true" />
+              </div>
+              <div class="ui-block-b">
+                <input type="button" name="pause_macro" id="pause_macro_button" value="pause" data-mini="true" />
+              </div>
+              <div class="ui-block-c">
+                <input type="button" name="clear_macro" id="clear_macro_button" value="clear" data-mini="true" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-role="header">
+          <h1>console</h1>
+        </div>
+        <div id="console"></div>
+      </div>
+      
+      <div id="macro_editor">
+        <div data-role="header">
+          <h1>vS Macro Editor</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+          <div data-role="navbar">
+            <ul>
+              <li>
+                <a href="#editor_file_menu" data-rel="popup" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">File</a>
+              </li>
+              <li>
+                <a href="#editor_macro_menu" data-rel="popup" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Macro</a>
+              </li>
+              <li>
+                <a id="add_step_button" data-rel="popup" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-plus ui-btn-icon-left ui-btn-a">Step</a>
+              </li>
+            </ul>
+          </div>
+          
+          <div id="editor_file_menu" data-role="popup" data-theme="b">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+              <li data-role="list-divider">File</li>
+              <li id="editor_file_menu_new">New</li>
+              <li id="editor_file_menu_open">Open...</li>
+              <li id="editor_file_menu_save">Save</li>
+              <li id="editor_file_menu_save_as">Save As...</li>
+              <li id="editor_file_menu_export">Export</li>
+              <li id="editor_file_menu_import">Import...</li>
+              <li id="editor_file_menu_exit">Exit Editor</li>
+            </ul>
+          </div>
+          
+          <div id="editor_macro_menu" data-role="popup" data-theme="b">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+              <li data-role="list-divider">Macro</li>
+              <li id="editor_macro_menu_test">Test Macro</li>
+              <li id="editor_macro_menu_multiply">Multiply Speed...</li>
+              <li id="editor_macro_menu_swap">Swap P1 and P2...</li>
+              <li id="editor_macro_menu_mirror">Mirror P1 and P2...</li>
+              <li id="editor_macro_menu_quick_text">Quick Text Scroll...</li>
+              <li id="editor_macro_menu_delete">Delete Macro...</li>
+            </ul>
+          </div>
+          
+        </div>
+        
+        <div id="open_macro" data-role="popup" data-rel="popup" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3>Open Macro...</h3>
+              <select id="open_macro_select" name="macro"></select>
+            </div>
+        </div>
+        
+        <div id="name_macro" data-role="popup" data-rel="popup" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3>Save As...</h3>
+              <input type='text' name="filename" id="filename_prompt" />
+              <div data-role="fieldcontain" class="ui-grid-a">
+                <input type='hidden' name="next_action" id="filename_next_action" />
+                <div class="ui-block-a">
+                  <input type="button" value="Cancel" id="filename_form_cancel" />
+                </div>
+                <div class="ui-block-b">
+                  <input type="button" value="OK" id="filename_form_save" />
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div id="macro_confirm_popup" data-role="popup" data-rel="popup" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3>Are You Sure...</h3>
+              <div id="confirm_message"></div>
+              <div data-role="fieldcontain" class="ui-grid-a">
+                <input type='hidden' name="next_action" id="confirm_next_action" />
+                <input type='hidden' name="action_data" id="confirm_data" />
+                <div class="ui-block-a">
+                  <input type="button" value="Cancel" id="confirm_popup_cancel" />
+                </div>
+                <div class="ui-block-b">
+                  <input type="button" value="Yes" id="confirm_popup_save" />
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div data-role="header">
+          <h1 id="macro_name">steps</h1>
+        </div>
+        <div id="editor_steps" class="ag-fresh"></div>
+        <div data-role="main" class="ui-content" style="display:none;">
+          <div id="step_menu" data-role="popup" data-transition="pop" data-theme="b">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+              <li data-role="list-divider" id="step_menu_title">Macro Step</li>
+              <li id="step_menu_edit">Edit Step</li>
+              <li id="step_menu_insert_above">Insert above</li>
+              <li id="step_menu_insert_below">Insert below</li>
+              <li id="step_menu_delete">Remove Step</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div id="edit_step_form" data-role="popup" data-rel="popup" data-transition="pop" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3 id="edit_step_title">Edit Step</h3>
+              <select id="edit_step_command" name="command"></select>
+              <div data-role="fieldcontain" class="ui-grid-a">
+                <div class="ui-block-a">
+                  <label for="step_time" data-inline="true" style="margin-top:15px;">Step Time:</label>
+                </div>
+                <div class="ui-block-b">
+                  <input type="number" data-inline="true" name="step_time" id="edit_step_time" value="0.1" />
+                </div>
+              </div>
+              <div>
+                <input type="hidden" name="action" id="edit_step_action" />
+                <input type="hidden" name="seq" id="edit_step_seq" />
+                <div data-role="fieldcontain" class="ui-grid-a">
+                  <div class="ui-block-a">
+                    <input type="button" value="Cancel" id="edit_step_form_cancel" />
+                  </div>
+                  <div class="ui-block-b">
+                    <input type="button" value="OK" id="edit_step_form_save" />
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div id="quick_text_form" data-role="popup" data-rel="popup" data-transition="pop" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3>Build a Quick Text Scroll</h3>
+              <input id="quick_text_text" name="quick_text"></select>
+              <div data-role="fieldcontain" class="ui-grid-a">
+                <div class="ui-block-a">
+                  <label for="step_time" data-inline="true" style="margin-top:15px;">Step Time:</label>
+                </div>
+                <div class="ui-block-b">
+                  <input type="number" data-inline="true" name="step_time" id="quick_text_step_time" value="0.3" />
+                </div>
+              </div>
+              <div>
+                <div data-role="fieldcontain" class="ui-grid-a">
+                  <div class="ui-block-a">
+                    <input type="button" value="Cancel" id="quick_text_form_cancel" />
+                  </div>
+                  <div class="ui-block-b">
+                    <input type="button" value="OK" id="quick_text_form_save" />
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div id="step_multiply_form" data-role="popup" data-rel="popup" data-transition="pop" data-theme="b" class="ui-corner-all">
+            <div style="padding:10px 20px;">
+              <h3 id="edit_step_title">Multiply All Step Times</h3>
+              <select id="step_multiply_operation_type" name="operation_type">
+                <option value='d'>Divide (increase speed)</option>
+                <option value='m'>Multiply (decrease speed)</option>
+              </select>
+              <div data-role="fieldcontain" class="ui-grid-a">
+                <div class="ui-block-a">
+                  <label for="step_time" data-inline="true" style="margin-top:15px;">by</label>
+                </div>
+                <div class="ui-block-b">
+                  <input type="number" data-inline="true" name="step_time" id="step_multiply_factor" value="1.5" />
+                </div>
+              </div>
+              <div>
+                <input type="hidden" name="action" id="edit_step_action" />
+                <input type="hidden" name="seq" id="edit_step_seq" />
+                <div data-role="fieldcontain" class="ui-grid-a">
+                  <div class="ui-block-a">
+                    <input type="button" value="Cancel" id="step_multiply_form_cancel" />
+                  </div>
+                  <div class="ui-block-b">
+                    <input type="button" value="OK" id="step_multiply_form_save" />
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </body>
+</html>

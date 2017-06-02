@@ -1,0 +1,9 @@
+#macro_editor{
+  display: none;
+  height: 100vh;
+}
+
+#editor_steps{
+  height:100vh;
+  width: 100vw;
+}
