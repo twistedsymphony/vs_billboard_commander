@@ -6,7 +6,7 @@ import logging
 logging.basicConfig()
 
 #create a billboard instance on a given set of ouput pins
-billboard = billboard([5,6,13,19,26,12,16,20])
+billboard = billboard([2,3,4,14,15,17,18,27])
 
 #create a macro instance (billboard instance, macro path, min command wait time)
 macros = macros(billboard, "/../../macros/", 0.00386)
