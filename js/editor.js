@@ -183,10 +183,12 @@ function initialize_editor(){
   });
   
   $('#edit_step_form_save').click(function(){
+    $('#add_step_button').removeClass('ui-btn-active ui-focus');
     edit_step_form_save();
   });
   
   $('#edit_step_form_cancel').click(function(){
+    $('#add_step_button').removeClass('ui-btn-active ui-focus');
     $.mobile.closePopup();
   });
   
@@ -418,11 +420,10 @@ function get_steps(){
 
 /* inserts a new step into the editor grid at the specified index */
 function insert_step(index, command, time){
+  index = parseInt(index);
   var row = [{c:command, t:time}];
   gridOptions.api.insertItemsAtIndex(index, row);
-  setTimeout(function(){
-    gridOptions.api.ensureIndexVisible(index);
-  }, 100);
+  gridOptions.api.ensureIndexVisible(index);
 }
 
 
